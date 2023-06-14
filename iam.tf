@@ -69,7 +69,7 @@ data "aws_iam_policy_document" "lambda" {
 }
 
 resource "aws_iam_role" "lambda" {
-  name               = format("%s-draining-function-role", var.autoscaling_group_name)
+  name               = format("%s-draining-function-role", substr(var.autoscaling_group_name, 0, 41))
   assume_role_policy = data.aws_iam_policy_document.lambda_assume_role.json
 
   tags = var.tags
@@ -100,7 +100,7 @@ data "aws_iam_policy_document" "lifecycle_assume_role" {
 }
 
 resource "aws_iam_role" "lifecycle" {
-  name               = format("%s-lifecycle-role", var.autoscaling_group_name)
+  name               = format("%s-lifecycle-role", substr(var.autoscaling_group_name, 0, 49))
   assume_role_policy = data.aws_iam_policy_document.lifecycle_assume_role.json
 
   tags = var.tags
