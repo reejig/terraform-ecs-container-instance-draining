@@ -30,7 +30,7 @@ resource "aws_lambda_function" "draining_lambda" {
   filename         = data.local_file.lambda_zip.filename
   source_code_hash = filebase64sha256(data.local_file.lambda_zip.filename)
 
-  tags = var.tags
+  tags = merge({"Name" = format("%s-draining-function", substr(var.autoscaling_group_name, 0, 45))}, var.tags)
 }
 
 resource "aws_cloudwatch_log_group" "lambda_log_group" {
